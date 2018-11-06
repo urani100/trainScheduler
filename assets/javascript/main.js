@@ -32,9 +32,21 @@ $(".submitInfo").on("click", function(event){
     firstTrain = $(".FirstTrainInput").val().trim();
     frequency = $(".frequencyInput").val().trim();
 
-    // create object tying input to fire base objects
+    //c create object tying input to fire base objects
+    var schedule ={
+        trainName: trainName,
+        destination: destination,
+        firstTrain: firstTrain,
+        frequency: frequency
+    }
 
     //d the push object to firebase
+
+    database.ref().on("child_added", function(snap){
+        var data = snap.val();
+        console.log(data);
+    })
+
     //e clear input fields
     $(".nameInput").val("");
     $(".destinationInput").val("");
