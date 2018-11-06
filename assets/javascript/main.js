@@ -1,5 +1,4 @@
 // Initialize Firebase
-
 var config = {
     apiKey: "AIzaSyBAIk3ZZC-rtF9Ad-MW3NbGPDI4GI33ojk",
     authDomain: "counter-ad7f7.firebaseapp.com",
@@ -14,48 +13,59 @@ var config = {
 database= firebase.database();
 
 // Initial Values
-var trainName = " ";
-var destination = " ";
-var firstTrain =0;
-var frequency = 0;
-var nextArrival = 0;
-var minutesAway = 0;
+var inpTrainName = "";
+var inpDestination = "";
+var inpFirstTrain = 0;
+var inpFrequency = 0;
 
 // Capture Button Click
 $(".submitInfo").on("click", function(event){
-    //a prevent default
+    // prevent default
     event.preventDefault();
 
-    //b// Grabb values from text boxes
-    trainName = $(".nameInput").val().trim();
-    destination =  $(".destinationInput").val().trim();
-    firstTrain = $(".FirstTrainInput").val().trim();
-    frequency = $(".frequencyInput").val().trim();
+    // Grab values from text boxes
+    inpTrainName = $(".nameInput").val().trim();
+    inpDestination =  $(".destinationInput").val().trim();
+    inpFirstTrain = $(".FirstTrainInput").val().trim();
+    inpFrequency = $(".frequencyInput").val().trim();
 
-    //c create object tying input to fire base objects
+
+    // create object tying input to firebase objects
     var schedule ={
-        trainName: trainName,
-        destination: destination,
-        firstTrain: firstTrain,
-        frequency: frequency
+        trainName: inpTrainName,
+        destination: inpDestination,
+        firstTrain: inpFirstTrain ,
+        frequency: inpFrequency
     }
 
-    //d the push object to firebase
-
-    database.ref().on("child_added", function(snap){
-        var data = snap.val();
-        console.log(data);
-    })
-
-    //e clear input fields
+    //push object to firebase
+    database.ref().push(schedule);
+       
+    //clear input fields
     $(".nameInput").val("");
     $(".destinationInput").val("");
     $(".FirstTrainInput").val("");
     $(".frequencyInput").val("");
 
+});
+
+
+// create firebase snapshot using child_added
+
+database.ref().on("child_added", function(snap){
+    //set input values to db values ussing snap.val()
+    inpTrainName = snap.val().trainName;
+    inpDestination = snap.val().destination
+    inpFirstTrain = snap.val().firstTrain
+    inpFrequency = snap.val().frequency
+
+    // append data to table
+    var addedRow = $("<tr>").append(
+       $("<td>").text(inpTrainName),
+       $("<td>").text(inpDestination),
+       $("<td>").text(inpFirstTrain),
+       $("<td>").text(inpFrequency)
+    );
+    $("table").append(addedRow);
+
 })
-
-
-
-// Firebase watcher .on funtion
-// append data to table
