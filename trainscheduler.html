@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Train Schedule</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+   
+    <style>
+        .container{
+            width: 960px;
+            margin: 0 auto 0 auto;
+        }
+        header{
+            padding: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <!-- <h3>The current time is: <span id="currenTime"></span></h3> -->
+
+    </header>
+    <div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Train Name</th>
+                <th scope="col">Destination</th>
+                <th scope="col">Frequency(min)</th>
+                <th scope="col">Next Arrival</th>
+                <th scope="col">Minutes Away</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td contenteditable="true">Metro North</td>
+                <td>South West</td>
+                <td>20</td>
+                <td>10:15</td>
+                <td>5</td>
+            </tr>
+           
+        </tbody>
+    </table>
+    <br> <hr>
+    <form>
+        <div class="form-group">
+            <label for="formGroupExampleInput">Train Name</label>
+            <input type="text" class="form-control nameInput" id="formGroupExampleInput">
+        </div>
+
+        <div class="form-group">
+            <label for="formGroupExampleInput2">Destination</label>
+            <input type="text" class="form-control destinationInput" id="formGroupExampleInput2">
+        </div>
+
+        <div class="form-group">
+            <label for="formGroupExampleInput2">Frist Train</label>
+            <input type="text" class="form-control FirstTrainInput" id="formGroupExampleInput2">
+        </div>
+
+        <div class="form-group">
+            <label for="formGroupExampleInput2">Frequency in Minutes</label>
+            <input type="text" class="form-control frequencyInput" id="formGroupExampleInput2">
+        </div>
+        <button type="submit" class="btn btn-primary submitInfo">Submit</button>
+
+    </form>
+</div>
+<!-- It took me forever to figure out that I must place the scrip here!!!! grrr -->
+<script src="assets/javascript/main.js"></script>   
+</body>
+</html>
