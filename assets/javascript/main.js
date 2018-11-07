@@ -46,7 +46,9 @@ $(".submitInfo").on("click", function(event){
         destination: inpDestination,
         frequency: inpFrequency,
         nextArrival: nextArrival,
+        firstTrain:inpFirstTrain,
         timeAway:timeAway
+
     }
 
 
@@ -60,7 +62,7 @@ $(".submitInfo").on("click", function(event){
     $(".FirstTrainInput").val("");
 
 });
-
+// TO DO: Add timestamp and order ...
 // create firebase snapshot using child_added
 database.ref().on("child_added", function(snap){
     //set input values to db values ussing snap.val()
@@ -68,7 +70,10 @@ database.ref().on("child_added", function(snap){
     inpDestination = snap.val().destination;
     inpFrequency = snap.val().frequency;
     nextArrival= snap.val().nextArrival,
-    timeAway= snap.val().timeAway
+    timeAway = snap.val().timeAway,
+    inpFirstTrain = snap.val().firstTrain
+
+    console.log(snap.val().frequency);
 
     // append data to table
     var addedRow = $("<tr>").append(
@@ -97,3 +102,4 @@ function frequency(){
      return timeAway = inpFrequency-remainder;
    
 }
+
