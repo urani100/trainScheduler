@@ -25,7 +25,6 @@ var timeAway  = 0;
 $(".submitInfo").on("click", function(event){
     // prevent default
     event.preventDefault();
-
     // Grab values from text boxes
     inpTrainName = $(".nameInput").val().trim();
     inpDestination =  $(".destinationInput").val().trim();
@@ -34,11 +33,9 @@ $(".submitInfo").on("click", function(event){
 
     //get time away
     timeAway = frequency()
-
      //calculate next arrival
      nextArrival = moment().add(timeAway, "minutes");
      nextArrival =  moment(nextArrival).format("hh:mm");
-
 
     // create object tying input to firebase objects
     var schedule ={
@@ -54,7 +51,6 @@ $(".submitInfo").on("click", function(event){
 
     //push object to firebase
     database.ref().push(schedule);
-       
     //clear input fields
     $(".nameInput").val("");
     $(".destinationInput").val("");
@@ -64,6 +60,8 @@ $(".submitInfo").on("click", function(event){
 });
 // TO DO: Add timestamp and order ...
 // create firebase snapshot using child_added
+
+
 database.ref().on("child_added", function(snap){
     //set input values to db values ussing snap.val()
     inpTrainName = snap.val().trainName;
@@ -72,8 +70,6 @@ database.ref().on("child_added", function(snap){
     nextArrival= snap.val().nextArrival,
     timeAway = snap.val().timeAway,
     inpFirstTrain = snap.val().firstTrain
-
-    console.log(snap.val().frequency);
 
     // append data to table
     var addedRow = $("<tr>").append(
@@ -84,6 +80,27 @@ database.ref().on("child_added", function(snap){
        $("<td>").text(timeAway),
     );
     $("table").append(addedRow);
+
+    ////////////////////////////////////////////
+    function test(){
+        var convertedTimex = moment(snap.val().firstTrain, "HH:mm");
+        var TimeDifferencex = moment().diff(convertedTimex, 'minutes');
+        var remainderx = TimeDifferencex % snap.val().frequency;
+        var timeAwayx = snap.val().frequency - remainderx;
+        nextArrivalx= moment().add(timeAwayx , "minutes");
+        nextArrivalx =  moment(nextArrivalx ).format("hh:mm");
+        // console.log(timeAwayx,  nextArrivalx);
+    
+        // I need to update the fields
+        $("<td>").text(nextArrival),
+        $("<td>").text(timeAway)
+        }// end of test
+    
+        //  setInterval(test, 20000);
+
+    ////////////////////////////////////////////
+
+
 }, function(error){
     console.log("Error Thrown: ", error.code);
 })
@@ -95,11 +112,14 @@ function frequency(){
     //calculate difference beween current time and inpFirstTrain
     var TimeDifference= moment().diff(convertedTime, 'minutes');
     
-    // calculate reaminder
+    // calculate remainder
     var remainder = TimeDifference% inpFrequency;
-   
+    
     //calculate how far away the next train is
      return timeAway = inpFrequency-remainder;
    
 }
 
+ // timeAway = setInterval(frequency, 20000);
+
+ 
