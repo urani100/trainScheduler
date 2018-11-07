@@ -42,8 +42,8 @@ $(".submitInfo").on("click", function(event){
         trainName: inpTrainName,
         destination: inpDestination,
         frequency: inpFrequency,
-        nextArrival: nextArrival,
         firstTrain:inpFirstTrain,
+        nextArrival: nextArrival,
         timeAway:timeAway
     }
 
@@ -80,6 +80,8 @@ database.ref().on("child_added", function(snap){
        $("<td>").addClass(keyAwy).text(timeAway),
     );
     $("table").append(addedRow);
+
+    console.log(snap.key);
     
 
     ////////////////////////////////////////////
@@ -92,18 +94,20 @@ database.ref().on("child_added", function(snap){
         nextArrivalUp = moment().add(timeAwayUp , "minutes");
         nextArrivalUp =  moment(nextArrivalUp).format("hh:mm");
         
-        console.log(timeAwayUp,  nextArrivalUp , snap.key);
+        // console.log(timeAwayUp,  nextArrivalUp , snap.key);
+        
 
         //update fields in DOM
         $("." + keyAvl).html(nextArrivalUp);
         $("." + keyAwy).html(timeAwayUp);
+        
+        // database.ref("/-LQjiSZb-3kUrbEydgeq").update({ nextArrival: nextArrivalUp });
+        // database.ref("/-LQjiSZb-3kUrbEydgeq").update({ timeAway: timeAwayUp });
+
+        // database.ref("child/path").update({ nextArrival: nextArrivalUp });
+        // database.ref("child/path").update({ timeAway: timeAwayUp });
 
 
-//this is lisening for change in the database.  I need the reverse...
-        database.ref().on("child_changed", function(snap){
-            console.log("something has changed? ", snap);
-        })
-        //I need to set the value but I must go by key?
 
     }// end of updates
     
