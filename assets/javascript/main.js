@@ -45,18 +45,16 @@ $(".submitInfo").on("click", function(event){
         nextArrival: nextArrival,
         firstTrain:inpFirstTrain,
         timeAway:timeAway
-
     }
-
 
     //push object to firebase
     database.ref().push(schedule);
+
     //clear input fields
     $(".nameInput").val("");
     $(".destinationInput").val("");
     $(".frequencyInput").val("");
     $(".FirstTrainInput").val("");
-
 });
 // TO DO: Add timestamp and order ...
 // create firebase snapshot using child_added
@@ -70,15 +68,16 @@ database.ref().on("child_added", function(snap){
     nextArrival= snap.val().nextArrival,
     timeAway = snap.val().timeAway,
     inpFirstTrain = snap.val().firstTrain
-
+    var keyAvl = snap.key+ "Avl";
+    var keyAwy = snap.key+ "Awy";
 
     // append data to table
     var addedRow = $("<tr>").append(
        $("<td>").text(inpTrainName),
        $("<td>").text(inpDestination),
        $("<td>").text(inpFrequency),
-       $("<td>").addClass("test").text(nextArrival),
-       $("<td>").text(timeAway),
+       $("<td>").addClass(keyAvl).text(nextArrival),
+       $("<td>").addClass(keyAwy).text(timeAway),
     );
     $("table").append(addedRow);
     
@@ -92,18 +91,24 @@ database.ref().on("child_added", function(snap){
         var timeAwayUp = snap.val().frequency - remainderUp;
         nextArrivalUp = moment().add(timeAwayUp , "minutes");
         nextArrivalUp =  moment(nextArrivalUp).format("hh:mm");
-       
+        
         console.log(timeAwayUp,  nextArrivalUp , snap.key);
 
-        //  how do I update these fields?
-        // $("<td>").text(inpTrainName),
-        // $("<td>").text(inpDestination),
-        // $("<td>").text(inpFrequency),
-        $(".test").html(nextArrivalUp),
-        $("<td>").html(timeAwayUp)
+        //update fields in DOM
+        $("." + keyAvl).html(nextArrivalUp);
+        $("." + keyAwy).html(timeAwayUp);
+
+        //I need to set the value but I must go by key?
+
+        // database.ref().set({
+        //     nextArrival: nextArrivalUp,
+        //     timeAway:timeAwayUp
+        //   });
+
+        //update fields in db
     }// end of updates
     
-    setInterval(updates, 20000);
+    //  setInterval(updates, 20000);
 
     ////////////////////////////////////////////
 
