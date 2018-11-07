@@ -17,6 +17,9 @@ var inpTrainName = "";
 var inpDestination = "";
 var inpFirstTrain = 0;
 var inpFrequency = 0;
+var nextArrival ="";
+var timeAway  = 0;
+
 
 // Capture Button Click
 $(".submitInfo").on("click", function(event){
@@ -26,17 +29,24 @@ $(".submitInfo").on("click", function(event){
     // Grab values from text boxes
     inpTrainName = $(".nameInput").val().trim();
     inpDestination =  $(".destinationInput").val().trim();
-    inpFirstTrain = $(".FirstTrainInput").val().trim();
     inpFrequency = $(".frequencyInput").val().trim();
+    inpFirstTrain = $(".FirstTrainInput").val().trim();
+    timeAway = frequency()
+
+     //calculate next arival
+     nextArrival = moment().add(timeAway, "minutes");
+     nextArrival =  moment(nextArrival).format("hh:mm");
 
 
     // create object tying input to firebase objects
     var schedule ={
         trainName: inpTrainName,
         destination: inpDestination,
-        firstTrain: inpFirstTrain ,
-        frequency: inpFrequency
+        frequency: inpFrequency,
+        nextArrival: nextArrival,
+        timeAway:timeAway
     }
+
 
     //push object to firebase
     database.ref().push(schedule);
@@ -44,28 +54,42 @@ $(".submitInfo").on("click", function(event){
     //clear input fields
     $(".nameInput").val("");
     $(".destinationInput").val("");
-    $(".FirstTrainInput").val("");
     $(".frequencyInput").val("");
+    $(".FirstTrainInput").val("");
 
 });
 
-
 // create firebase snapshot using child_added
-
 database.ref().on("child_added", function(snap){
     //set input values to db values ussing snap.val()
     inpTrainName = snap.val().trainName;
-    inpDestination = snap.val().destination
-    inpFirstTrain = snap.val().firstTrain
-    inpFrequency = snap.val().frequency
+    inpDestination = snap.val().destination;
+    inpFrequency = snap.val().frequency;
+    nextArrival= snap.val().nextArrival,
+    timeAway= snap.val().timeAway
 
     // append data to table
     var addedRow = $("<tr>").append(
        $("<td>").text(inpTrainName),
        $("<td>").text(inpDestination),
-       $("<td>").text(inpFirstTrain),
-       $("<td>").text(inpFrequency)
+       $("<td>").text(inpFrequency),
+       $("<td>").text(nextArrival),
+       $("<td>").text(timeAway),
     );
     $("table").append(addedRow);
-
 })
+
+function frequency(){
+    //convert inpFirstTrain  in "HH:mm"
+    var convertedTime = moment(inpFirstTrain, "HH:mm");
+
+    //calculate difference beween current time and inpFirstTrain
+    var TimeDifference= moment().diff(convertedTime, 'minutes');
+    
+    // calculate reaminder
+    var remainder = TimeDifference% inpFrequency;
+   
+    //calculate how far away the next train is
+     return timeAway = inpFrequency-remainder;
+   
+}
