@@ -31,9 +31,11 @@ $(".submitInfo").on("click", function(event){
     inpDestination =  $(".destinationInput").val().trim();
     inpFrequency = $(".frequencyInput").val().trim();
     inpFirstTrain = $(".FirstTrainInput").val().trim();
+
+    //get time away
     timeAway = frequency()
 
-     //calculate next arival
+     //calculate next arrival
      nextArrival = moment().add(timeAway, "minutes");
      nextArrival =  moment(nextArrival).format("hh:mm");
 
@@ -77,6 +79,8 @@ database.ref().on("child_added", function(snap){
        $("<td>").text(timeAway),
     );
     $("table").append(addedRow);
+}, function(error){
+    console.log("Error Thrown: ", error.code);
 })
 
 function frequency(){
