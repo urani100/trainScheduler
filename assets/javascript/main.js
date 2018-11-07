@@ -98,17 +98,16 @@ database.ref().on("child_added", function(snap){
         $("." + keyAvl).html(nextArrivalUp);
         $("." + keyAwy).html(timeAwayUp);
 
+
+//this is lisening for change in the database.  I need the reverse...
+        database.ref().on("child_changed", function(snap){
+            console.log("something has changed? ", snap);
+        })
         //I need to set the value but I must go by key?
 
-        // database.ref().set({
-        //     nextArrival: nextArrivalUp,
-        //     timeAway:timeAwayUp
-        //   });
-
-        //update fields in db
     }// end of updates
     
-    //  setInterval(updates, 20000);
+    // setInterval(updates, 20000);
 
     ////////////////////////////////////////////
 
@@ -132,6 +131,5 @@ function frequency(){
    
 }
 
- // timeAway = setInterval(frequency, 20000);
-
+ 
  
