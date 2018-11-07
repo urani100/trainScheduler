@@ -71,32 +71,39 @@ database.ref().on("child_added", function(snap){
     timeAway = snap.val().timeAway,
     inpFirstTrain = snap.val().firstTrain
 
+
     // append data to table
     var addedRow = $("<tr>").append(
        $("<td>").text(inpTrainName),
        $("<td>").text(inpDestination),
        $("<td>").text(inpFrequency),
-       $("<td>").text(nextArrival),
+       $("<td>").addClass("test").text(nextArrival),
        $("<td>").text(timeAway),
     );
     $("table").append(addedRow);
+    
 
     ////////////////////////////////////////////
-    function test(){
-        var convertedTimex = moment(snap.val().firstTrain, "HH:mm");
-        var TimeDifferencex = moment().diff(convertedTimex, 'minutes');
-        var remainderx = TimeDifferencex % snap.val().frequency;
-        var timeAwayx = snap.val().frequency - remainderx;
-        nextArrivalx= moment().add(timeAwayx , "minutes");
-        nextArrivalx =  moment(nextArrivalx ).format("hh:mm");
-        // console.log(timeAwayx,  nextArrivalx);
+
+    function updates(){
+        var convertedTimeUp = moment(snap.val().firstTrain, "HH:mm");
+        var TimeDifferenceUp = moment().diff(convertedTimeUp, 'minutes');
+        var remainderUp = TimeDifferenceUp % snap.val().frequency;
+        var timeAwayUp = snap.val().frequency - remainderUp;
+        nextArrivalUp = moment().add(timeAwayUp , "minutes");
+        nextArrivalUp =  moment(nextArrivalUp).format("hh:mm");
+       
+        console.log(timeAwayUp,  nextArrivalUp , snap.key);
+
+        //  how do I update these fields?
+        // $("<td>").text(inpTrainName),
+        // $("<td>").text(inpDestination),
+        // $("<td>").text(inpFrequency),
+        $(".test").html(nextArrivalUp),
+        $("<td>").html(timeAwayUp)
+    }// end of updates
     
-        // I need to update the fields
-        $("<td>").text(nextArrival),
-        $("<td>").text(timeAway)
-        }// end of test
-    
-        //  setInterval(test, 20000);
+    setInterval(updates, 20000);
 
     ////////////////////////////////////////////
 
