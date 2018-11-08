@@ -75,6 +75,7 @@ database.ref().on("child_added", function(snap){
     var key = snap.key;
     var keyAvl = snap.key+ "Avl";
     var keyAwy = snap.key+ "Awy";
+    var keyDel = snap.key+ "Del";
 
     // append data to table
     var addedRow = $("<tr>").append(
@@ -83,10 +84,16 @@ database.ref().on("child_added", function(snap){
        $("<td>").text(inpFrequency),
        $("<td>").addClass(keyAvl).text(nextArrival),
        $("<td>").addClass(keyAwy).text(timeAway),
+       $("<button>").addClass(keyDel).text("X"),
     );
     $("table").append(addedRow);
 
+     //delete function
+    $(document).on("click", "."+keyDel, function(){
+        // alert("I work");
+        database.ref("/" + key).remove();
 
+    })
 
     // function leverages snapshot to update arrival and time away
     function updates(){
@@ -107,8 +114,8 @@ database.ref().on("child_added", function(snap){
         database.ref("/" + key).update({ timeAway: timeAwayUp });
     }// end of updates
     
-    // udates arrival time away every two minutes.
-    setInterval(updates, 20000);
+    // udates arrival and time away every two minutes.
+    // setInterval(updates, 20000);
 
 }, function(error){
     console.log("Error Thrown: ", error.code);
