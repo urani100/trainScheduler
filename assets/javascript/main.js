@@ -21,7 +21,7 @@ var nextArrival ="";
 var timeAway  = 0;
 
 
-// Capture Button Click
+// capture submit information
 $(".submitInfo").on("click", function(event){
     // prevent default
     event.preventDefault();
@@ -31,11 +31,14 @@ $(".submitInfo").on("click", function(event){
     inpFrequency = $(".frequencyInput").val().trim();
     inpFirstTrain = $(".FirstTrainInput").val().trim();
 
-    //get time away
-    timeAway = frequency()
-     //calculate next arrival
-     nextArrival = moment().add(timeAway, "minutes");
-     nextArrival =  moment(nextArrival).format("hh:mm");
+    //call frequency to get time away 
+    timeAway = frequency();
+
+    //calculate next arrival
+   var nextArrival = moment().add(timeAway, "minutes");
+
+   //format next arrival
+    nextArrival =  moment(nextArrival).format("hh:mm");
 
     // create object tying input to firebase objects
     var schedule ={
@@ -55,11 +58,12 @@ $(".submitInfo").on("click", function(event){
     $(".destinationInput").val("");
     $(".frequencyInput").val("");
     $(".FirstTrainInput").val("");
-});
-// TO DO: Add timestamp and order ...
+});//end of submit
+
+// TO DO: order by minutes away
+
+
 // create firebase snapshot using child_added
-
-
 database.ref().on("child_added", function(snap){
     //set input values to db values ussing snap.val()
     inpTrainName = snap.val().trainName;
@@ -68,6 +72,7 @@ database.ref().on("child_added", function(snap){
     nextArrival= snap.val().nextArrival,
     timeAway = snap.val().timeAway,
     inpFirstTrain = snap.val().firstTrain
+    var key = snap.key;
     var keyAvl = snap.key+ "Avl";
     var keyAwy = snap.key+ "Awy";
 
@@ -81,59 +86,46 @@ database.ref().on("child_added", function(snap){
     );
     $("table").append(addedRow);
 
-    console.log(snap.key);
-    
 
-    ////////////////////////////////////////////
 
+    // function leverages snapshot to update arrival and time away
     function updates(){
+        // debugger;
         var convertedTimeUp = moment(snap.val().firstTrain, "HH:mm");
         var TimeDifferenceUp = moment().diff(convertedTimeUp, 'minutes');
         var remainderUp = TimeDifferenceUp % snap.val().frequency;
         var timeAwayUp = snap.val().frequency - remainderUp;
-        nextArrivalUp = moment().add(timeAwayUp , "minutes");
+        var nextArrivalUp = moment().add(timeAwayUp , "minutes");
         nextArrivalUp =  moment(nextArrivalUp).format("hh:mm");
-        
-        // console.log(timeAwayUp,  nextArrivalUp , snap.key);
-        
 
         //update fields in DOM
         $("." + keyAvl).html(nextArrivalUp);
         $("." + keyAwy).html(timeAwayUp);
-        
-        // database.ref("/-LQjiSZb-3kUrbEydgeq").update({ nextArrival: nextArrivalUp });
-        // database.ref("/-LQjiSZb-3kUrbEydgeq").update({ timeAway: timeAwayUp });
 
-        // database.ref("child/path").update({ nextArrival: nextArrivalUp });
-        // database.ref("child/path").update({ timeAway: timeAwayUp });
-
-
-
+        //update database
+        database.ref("/" + key).update({ nextArrival: nextArrivalUp });
+        database.ref("/" + key).update({ timeAway: timeAwayUp });
     }// end of updates
     
-    // setInterval(updates, 20000);
-
-    ////////////////////////////////////////////
-
+    // udates arrival time away every two minutes.
+    setInterval(updates, 20000);
 
 }, function(error){
     console.log("Error Thrown: ", error.code);
-})
+})//end of on
+
+
 
 function frequency(){
     //convert inpFirstTrain  in "HH:mm"
     var convertedTime = moment(inpFirstTrain, "HH:mm");
-
     //calculate difference beween current time and inpFirstTrain
     var TimeDifference= moment().diff(convertedTime, 'minutes');
-    
     // calculate remainder
     var remainder = TimeDifference% inpFrequency;
-    
     //calculate how far away the next train is
      return timeAway = inpFrequency-remainder;
-   
-}
+}//end of frequency
 
  
  
