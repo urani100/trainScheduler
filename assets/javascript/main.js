@@ -22,6 +22,7 @@ var timeAway  = 0;
 
 
 // capture submit information
+//TO DO: validate input
 $(".submitInfo").on("click", function(event){
     // prevent default
     event.preventDefault();
@@ -58,10 +59,10 @@ $(".submitInfo").on("click", function(event){
     $(".destinationInput").val("");
     $(".frequencyInput").val("");
     $(".FirstTrainInput").val("");
+    
 });//end of submit
 
 // TO DO: order by minutes away
-
 
 // create firebase snapshot using child_added
 database.ref().on("child_added", function(snap){
@@ -72,28 +73,32 @@ database.ref().on("child_added", function(snap){
     nextArrival= snap.val().nextArrival,
     timeAway = snap.val().timeAway,
     inpFirstTrain = snap.val().firstTrain
+
+    //get and create keys to add as class for update function
     var key = snap.key;
     var keyAvl = snap.key+ "Avl";
     var keyAwy = snap.key+ "Awy";
     var keyDel = snap.key+ "Del";
 
     // append data to table
-    var addedRow = $("<tr>").append(
+    var addedRow = $("<tr>").addClass(key).append(
        $("<td>").text(inpTrainName),
        $("<td>").text(inpDestination),
        $("<td>").text(inpFrequency),
        $("<td>").addClass(keyAvl).text(nextArrival),
        $("<td>").addClass(keyAwy).text(timeAway),
-       $("<button>").addClass(keyDel).text("X"),
+       $("<button>").addClass(keyDel).addClass("fa fa-trash").css("background-color", "#e8e7e3")
     );
     $("table").append(addedRow);
 
      //delete function
-    $(document).on("click", "."+keyDel, function(){
-        // alert("I work");
-        database.ref("/" + key).remove();
+     $(document).on("click", "."+keyDel, function(){
+     database.ref("/" + key).off(); //Callbacks are removed?
+     database.ref("/" + key).remove(); //instance Physically removed from db?
+     $("."+key).empty();
 
-    })
+    // how do I refersh the DOM?
+   });
 
     // function leverages snapshot to update arrival and time away
     function updates(){
@@ -115,14 +120,14 @@ database.ref().on("child_added", function(snap){
     }// end of updates
     
     // udates arrival and time away every two minutes.
-    // setInterval(updates, 20000);
+    // setInterval(updates, 10000);
 
 }, function(error){
     console.log("Error Thrown: ", error.code);
 })//end of on
 
 
-
+// frequency function
 function frequency(){
     //convert inpFirstTrain  in "HH:mm"
     var convertedTime = moment(inpFirstTrain, "HH:mm");
@@ -133,6 +138,8 @@ function frequency(){
     //calculate how far away the next train is
      return timeAway = inpFrequency-remainder;
 }//end of frequency
+
+
 
  
  
