@@ -1,60 +1,55 @@
 <!--Firebase Authentication Widget-->
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title> Train Scheduler Sign In</title>
-    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css"/>
-    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css"/>
-   
-    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
-
-
-    <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
-    <script>
-    // Initialize Firebase
-    var config = {
-    apiKey: "AIzaSyBAIk3ZZC-rtF9Ad-MW3NbGPDI4GI33ojk",
-    authDomain: "counter-ad7f7.firebaseapp.com",
-    databaseURL: "https://counter-ad7f7.firebaseio.com",
-    projectId: "counter-ad7f7",
-    storageBucket: "counter-ad7f7.appspot.com",
-    messagingSenderId: "422933218698"
+<head>
+  <meta charset="UTF-8">
+  <title> Train Scheduler Sign In</title>
+  <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css"/>
+  <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css"/>
+  <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
+  <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
+  <script>
+  // Initialize Firebase
+  var config = {
+  apiKey: "AIzaSyBAIk3ZZC-rtF9Ad-MW3NbGPDI4GI33ojk",
+  authDomain: "counter-ad7f7.firebaseapp.com",
+  databaseURL: "https://counter-ad7f7.firebaseio.com",
+  projectId: "counter-ad7f7",
+  storageBucket: "counter-ad7f7.appspot.com",
+  messagingSenderId: "422933218698"
 };
- firebase.initializeApp(config);
- </script>
-    
-    <script src="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.css" />
+firebase.initializeApp(config);
+</script>
+  
+  <script src="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.css" />
 
-    <script type="text/javascript">
-      // FirebaseUI config.
-      var uiConfig = {
-        signInSuccessUrl: 'trainscheduler.html',
-        signInOptions: [
-          // Leave the lines as is for the providers you want to offer your users.
-          firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-          firebase.auth.GithubAuthProvider.PROVIDER_ID,
-        ],
-      };
+  <script type="text/javascript">
+    // FirebaseUI config.
+    var uiConfig = {
+      signInSuccessUrl: 'trainscheduler.html', 
+      signInOptions: [
+        // Leave the lines as is for the providers you want to offer your users.
+        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+        firebase.auth.GithubAuthProvider.PROVIDER_ID,
+      ],
+    };
+    // Initialize the FirebaseUI Widget using Firebase.
+    var ui = new firebaseui.auth.AuthUI(firebase.auth());
+    // The start method will wait until the DOM is loaded.
+    ui.start('#firebaseui-auth-container', uiConfig);
+  </script>
 
-      // Initialize the FirebaseUI Widget using Firebase.
-      var ui = new firebaseui.auth.AuthUI(firebase.auth());
-      // The start method will wait until the DOM is loaded.
-      ui.start('#firebaseui-auth-container', uiConfig);
-    </script>
-
-  </head>
-  <body>
-      <header id="headerSingIn">
-          <h1>Train Scheduler </h1>
-      </header>
-
-      <div class=containerWidget>
-        <div id="signIn">
-          <div id="firebaseui-auth-container"></div>
-      </div>  
-    </div>
-   
-  </body>
+</head>
+<body>
+    <header id="headerSingIn">
+        <h1>Train Scheduler </h1>
+    </header>
+    <div class=containerWidget>
+      <div id="signIn">
+        <div id="firebaseui-auth-container"></div>
+    </div>  
+  </div>
+  
+</body>
 </html>

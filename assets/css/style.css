@@ -1,82 +1,69 @@
 
-      body{
-        background-color: #e8e7e3;
-      }
-      
-      .containerWidget,
-      .container{
-        width: 960px;
-        margin: 0 auto 0 auto;
-      }
+body{
+  background-color: #e8e7e3;
+}
 
-      #headerSingIn{
-        margin: 0;
-        padding: 40px;
-        font-size: 20px;
-        text-align: center;
-        font-family: 'Abril Fatface', cursive;
-        letter-spacing: 2px;
-        color: #cecbc0;     
-      }
+.containerWidget,
+.container{
+  width: 960px;
+  margin: 0 auto 0 auto;
+}
 
-      #signIn{
-        background-image: url("/Users/ml/Desktop/Bootcamp/Homework/trainScheduler/assets/images/background.png");
-        background-repeat: no-repeat;
-        margin: 0 auto 0 auto;
-        margin-top: 50px;
-        padding:110px;
-        width: 300px;
-        height: 150px;
-        /* background-color:94a395; */
-        box-shadow: 4px 4px 8px 0 #cecbc0, 0 6px 20px 0 #cecbc0;
-      }
+#headerSingIn{
+  margin: 0;
+  padding: 40px;
+  font-size: 20px;
+  text-align: center;
+  font-family: 'Abril Fatface', cursive;
+  letter-spacing: 2px;
+  color: #cecbc0;     
+}
+
+#signIn{
+  /* background-image: url("/Users/ml/Desktop/Bootcamp/Homework/trainScheduler/assets/images/background.png"); */
+  background-image: url("../../assets/images/background.png");
+  background-repeat: no-repeat;
+  margin: 0 auto 0 auto;
+  margin-top: 50px;
+  padding:110px;
+  width: 300px;
+  height: 150px;
+  /* background-color:94a395; */
+  box-shadow: 4px 4px 8px 0 #cecbc0, 0 6px 20px 0 #cecbc0;
+}
 
 
-      #headerHome{
-        margin: 0;
-        padding: 40px;
-        font-size: 50px;
-        text-align: center;
-        font-family: 'Abril Fatface', cursive;
-        letter-spacing: 2px;
-        color: #cecbc0;    
-        background-image: url("/Users/ml/Desktop/Bootcamp/Homework/trainScheduler/assets/images/home.png"); 
-        border-bottom: 0.5px solid #cecbc0; 
-      }
+#headerHome{
+  margin: 0;
+  padding: 40px;
+  font-size: 50px;
+  text-align: center;
+  font-family: 'Abril Fatface', cursive;
+  letter-spacing: 2px;
+  color: #cecbc0;    
+  /* background-image: url("/Users/ml/Desktop/Bootcamp/Homework/trainScheduler/assets/images/home.png");  */
+  background-image: url("../../assets/images/home.png");
+  border-bottom: 0.5px solid #cecbc0; 
+} 
 
-       #headerHome{
-        margin: 0;
-        padding: 50px;
-        font-size: 50px;
-        text-align: center;
-        font-family: 'Abril Fatface', cursive;
-        letter-spacing: 2px;
-        color: #cecbc0;    
-        background-image: url("/Users/ml/Desktop/Bootcamp/Homework/trainScheduler/assets/images/home.png"); 
-      }
-
-      .table{
-        box-shadow: 2px 2px 2px 0 #cecbc0, 0 2px 10px 0 #cecbc0;
-        font-family: 'Abril Fatface', cursive;
-        font-size: 15px;
-        letter-spacing: 1px;
-        color:#3d3b3b;
-      }
-      form,
-      .submitInfo{
-        font-family: 'Abril Fatface', cursive;
-        font-size: 15px;
-        letter-spacing: 1px;
-        color:#3d3b3b;
-      }
+.table{
+  box-shadow: 2px 2px 2px 0 #cecbc0, 0 2px 10px 0 #cecbc0;
+  font-family: 'Abril Fatface', cursive;
+  font-size: 15px;
+  letter-spacing: 1px;
+  color:#3d3b3b;
+}
+form,
+.submitInfo,
+.newSearch{
+  font-family: 'Abril Fatface', cursive;
+  font-size: 15px;
+  letter-spacing: 1px;
+  color:#3d3b3b;
+}
 
   
-      .destinationInput:focus{
-        outline:none; 
-      }
-      .form-control:focus{
-        outline:none;
-      }
+      
       
 .footerHome{
   border-top: 0.5px solid #cecbc0; 
@@ -84,5 +71,11 @@
   color:#3d3b3b;
 }
 
+.textA{
+  background-color:#fcfbf9;
+}
 
+.textA:focus{
+  outline:none; 
+}
 

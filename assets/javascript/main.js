@@ -96,8 +96,6 @@ database.ref().on("child_added", function(snap){
      database.ref("/" + key).off(); //Callbacks are removed?
      database.ref("/" + key).remove(); //instance Physically removed from db?
      $("."+key).empty();
-
-    // how do I refersh the DOM?
    });
 
     // function leverages snapshot to update arrival and time away
@@ -119,8 +117,8 @@ database.ref().on("child_added", function(snap){
         database.ref("/" + key).update({ timeAway: timeAwayUp });
     }// end of updates
     
-    // udates arrival and time away every two minutes.
-    // setInterval(updates, 10000);
+    // udates arrival and time away every minutes.
+    setInterval(updates, 10000);
 
 }, function(error){
     console.log("Error Thrown: ", error.code);
