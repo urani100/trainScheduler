@@ -141,9 +141,10 @@ function frequency(){
 
 $('#signOut').on('click', function(){
     alert("hello");
+    console.log(firebase);
     firebase.auth().signOut().then(function() {
         // Sign-out successful.
-        
+        console.log("sign out");
       }).catch(function(error) {
         console.log(error.code);
       });
