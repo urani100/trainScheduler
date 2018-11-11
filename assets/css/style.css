@@ -20,7 +20,6 @@ body{
 }
 
 #signIn{
-  /* background-image: url("/Users/ml/Desktop/Bootcamp/Homework/trainScheduler/assets/images/background.png"); */
   background-image: url("../../assets/images/background.png");
   background-repeat: no-repeat;
   margin: 0 auto 0 auto;
@@ -54,6 +53,7 @@ body{
 }
 form,
 .submitInfo,
+#signOut,
 .newSearch,
 #add,
 #cancel{
@@ -62,6 +62,10 @@ form,
   color:#3d3b3b;
 }
 
+#signOut{
+  position: absolute;
+  right: 20px;
+}
   
       
       

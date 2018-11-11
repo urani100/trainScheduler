@@ -139,9 +139,8 @@ function frequency(){
 }//end of frequency
 
 
-$('#signOut').on('click', function(){
-    console.log('we are in the sing out function');
-    console.log(firebase);
+$('#signOut').on('click', function(event){
+    event.preventDefault();
     firebase.auth().signOut().then(function() {
         window.location.replace("https://urani100.github.io/trainScheduler");
         // Sign-out successful.
