@@ -140,10 +140,12 @@ function frequency(){
 
 
 $('#signOut').on('click', function(){
+   
     firebase.auth().signOut().then(function() {
         // Sign-out successful.
+        alert("hello");
       }).catch(function(error) {
-        // An error happened.
+        console.log(error.code);
       });
 });
 
