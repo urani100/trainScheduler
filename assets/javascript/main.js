@@ -140,14 +140,16 @@ function frequency(){
 
 
 $('#signOut').on('click', function(){
-    alert("hello");
+    console.log('we are in the sing out function');
     console.log(firebase);
     firebase.auth().signOut().then(function() {
+        window.location.replace("https://urani100.github.io/trainScheduler");
         // Sign-out successful.
         console.log("sign out");
       }).catch(function(error) {
         console.log(error.code);
       });
+
 });
 
 
