@@ -59,7 +59,8 @@ $(".submitInfo").on("click", function(event){
     $(".destinationInput").val("");
     $(".frequencyInput").val("");
     $(".FirstTrainInput").val("");
-    
+
+   
 });//end of submit
 
 // TO DO: order by minutes away
@@ -137,6 +138,14 @@ function frequency(){
      return timeAway = inpFrequency-remainder;
 }//end of frequency
 
+
+$('#signOut').on('click', function(){
+    firebase.auth().signOut().then(function() {
+        // Sign-out successful.
+      }).catch(function(error) {
+        // An error happened.
+      });
+});
 
 
  

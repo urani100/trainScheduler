@@ -50,15 +50,15 @@ body{
   box-shadow: 2px 2px 2px 0 #cecbc0, 0 2px 10px 0 #cecbc0;
   font-family: 'Abril Fatface', cursive;
   font-size: 15px;
-  letter-spacing: 1px;
   color:#3d3b3b;
 }
 form,
 .submitInfo,
-.newSearch{
+.newSearch,
+#add,
+#cancel{
   font-family: 'Abril Fatface', cursive;
   font-size: 15px;
-  letter-spacing: 1px;
   color:#3d3b3b;
 }
 

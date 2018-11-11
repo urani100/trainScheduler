@@ -38,6 +38,10 @@ firebase.initializeApp(config);
     var ui = new firebaseui.auth.AuthUI(firebase.auth());
     // The start method will wait until the DOM is loaded.
     ui.start('#firebaseui-auth-container', uiConfig);
+
+  
+    })
+    
   </script>
 
 </head>
@@ -49,6 +53,7 @@ firebase.initializeApp(config);
       <div id="signIn">
         <div id="firebaseui-auth-container"></div>
     </div>  
+    <button id='signOut'>Sign Out</button>
   </div>
   
 </body>
